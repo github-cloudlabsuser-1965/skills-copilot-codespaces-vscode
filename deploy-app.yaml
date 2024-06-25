@@ -1,0 +1,52 @@
+# Create a GitHub action to email a report from a file at 6 a.m. daily.
+name: Email-Report
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL }}
+          password: ${{ secrets.PASSWORD }}
+          subject: 'Daily Report'
+          body: 'Please find the attached report.'
+          to: ${{ secrets.TO }}
+          from: ${{ secrets.FROM }}
+          attachments: deploy-app.yaml
+ 
+ 
+ The  on  keyword is used to define the schedule. In this case, it is set to run the action every day at 6 a.m. 
+ The  jobs  keyword is used to define the job,  email , that will run the action. 
+ The job will run on the latest version of Ubuntu. 
+ The  steps  keyword is used to define the tasks that the job will perform. 
+ The  actions/checkout@v2  action is used to check out the repository. 
+ The  dawidd6/action-send-mail@v2  action is used to send an email. It requires the following parameters:
+ 
+ server_address : The address of the SMTP server. 
+ server_port : The port of the SMTP server. 
+ username : The email address of the sender. This value is stored in a secret named  EMAIL . 
+ password : The password of the sender's email address. This value is stored in a secret named  PASSWORD . 
+ subject : The subject of the email. 
+ body : The body of the email. 
+ to : The email address of the recipient. This value is stored in a secret named  TO . 
+ from : The email address of the sender. This value is stored in a secret named  FROM . 
+ attachments : The file to attach to the email. In this case, it is the  deploy-app.yaml  file. 
+ 
+ 
+ 
+ 
+ The action will run every day at 6 a.m. and send an email with the  deploy-app.yaml  file attached. 
+ 
+ 
+ The GitHub action will run every day at 6 a.m. and send an email with the  deploy-app.yaml  file attached. 
+ The GitHub action will send an
